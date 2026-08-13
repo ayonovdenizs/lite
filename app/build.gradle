@@ -4,7 +4,7 @@ import java.util.zip.ZipFile
 
 plugins {
     id 'com.android.application'
-    id 'net.nemerosa.versioning' version '3.1.0'
+    id 'net.nemerosa.versioning' version '4.0.1'
     id 'org.mozilla.rust-android-gradle.rust-android'
 }
 
