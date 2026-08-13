@@ -28,14 +28,14 @@
     </a>
 </p>
 
-**ВТостерс Lite** — это модифицированный клиент официального ВКонтакте, основанный на версии **5.56.1 (4838)**
+**VTL Reforged** — это модифицированный клиент официального ВКонтакте (на основе Vtosters Lite), основанный на версии **5.56.1 (4838)**
 
-* Вы можете предложить свои идеи/сообщить о багах в [Issues](https://github.com/vtosters/lite/issues)
+* Вы можете предложить свои идеи/сообщить о багах в [Issues](https://github.com/ayonovdenizs/lite/issues)
 
-* Скачивать самые актуальные версии можно с [Actions](https://github.com/vtosters/lite/actions)
+* Скачивать самые актуальные версии можно с [Actions](https://github.com/ayonovdenizs/lite/actions)
 <sup><sub>(могут содержать баги)</sub></sup>
 
-* Стабильные сборки находятся в [Releases](https://github.com/vtosters/lite/releases)
+* Стабильные сборки находятся в [Releases](https://github.com/ayonovdenizs/lite/releases)
 
 Зеркало на нашем [<img src="https://gitea.com/assets/img/logo.svg" align="center" width="20" height="20"/> Git](https://git.maki.su/vtosters/lite)
 
@@ -64,7 +64,7 @@
 * Эксклюзивные функции и галочки для тех кто поддержал разработку. <a href="https://vtosters.app/donate">Подробнее</a> 
 * Глобальная оптимизация приложения VK (Удалены сторонние библиотеки рекламы, аналитики и метрики, заглушки для рекламных запросов)
 
-Все функции модификации описаны [здесь](https://github.com/vtosters/lite/blob/main/.github/features.md)
+Все функции модификации описаны [здесь](https://github.com/ayonovdenizs/lite/blob/main/.github/features.md)
 
 ## Отладка приложения
 
@@ -90,7 +90,7 @@
 
 Для понимания работы декомпилированного кода требуется использовать **Dex to Java** декомпилятор [jadx](https://github.com/skylot/jadx) или же сторонние варианты как [Fernflower](https://github.com/fesh0r/fernflower)
 
-При нахождении решения каких-либо проблем ждем вас в [Pull Requests](https://github.com/vtosters/lite/pulls)
+При нахождении решения каких-либо проблем ждем вас в [Pull Requests](https://github.com/ayonovdenizs/lite/pulls)
 
 * Рекомендуется установка **ADB** в систему ([Как это сделать](https://technastic.com/system-wide-adb-fastboot-windows-10))
 
