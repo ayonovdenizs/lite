@@ -23,4 +23,10 @@
             <certificates src="system"/>
         </trust-anchors>
     </domain-config>
+    <domain-config>
+        <domain includeSubdomains="true">api.vk.ru</domain>
+        <trust-anchors>
+            <certificates src="system"/>
+        </trust-anchors>
+    </domain-config>
 </network-security-config>

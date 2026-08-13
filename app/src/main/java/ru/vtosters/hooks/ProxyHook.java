@@ -26,31 +26,25 @@ import static ru.vtosters.lite.utils.LifecycleUtils.restartApplication;
 
 public class ProxyHook {
     public static String linkReplacer(String link) {
-        String vkapi = "api.vk.ru";
-        String oauth = "oauth.vk.ru";
-        String vkstatic = "static.vk.ru";
+        if (link == null || link.isEmpty()) {
+            return link;
+        }
 
         String proxyapi = getProxyHost("proxyapi");
         String proxyoauth = getProxyHost("proxyoauth");
         String proxystatic = getProxyHost("proxystatic");
 
-        if (!isAnyProxyEnabled() || link.isEmpty() || areProxyHostsEmpty(proxyapi, proxyoauth, proxystatic)) {
+        if (!isAnyProxyEnabled() || areProxyHostsEmpty(proxyapi, proxyoauth, proxystatic)) {
             return link;
         }
 
-        if (link.contains(vkapi)) {
-            return link.replaceAll(vkapi, proxyapi);
-        }
-
-        if (link.contains(oauth)) {
-            return link.replaceAll(oauth, proxyoauth);
-        }
-
-        if (link.contains(vkstatic)) {
-            return link.replaceAll(vkstatic, proxystatic);
-        }
-
-        return link;
+        return link
+                .replace("api.vk.com", proxyapi)
+                .replace("api.vk.ru", proxyapi)
+                .replace("oauth.vk.com", proxyoauth)
+                .replace("oauth.vk.ru", proxyoauth)
+                .replace("static.vk.com", proxystatic)
+                .replace("static.vk.ru", proxystatic);
     }
 
     private static String getProxyHost(String hostType) {
@@ -61,9 +55,9 @@ public class ProxyHook {
                 case "proxystatic" -> VikaMobile.getStaticHost();
                 default -> "";
             };
-        } else {
-            return "";
         }
+
+        return getString(hostType);
     }
 
     private static boolean areProxyHostsEmpty(String... hosts) {
@@ -84,7 +78,7 @@ public class ProxyHook {
         }
 
         if (isAnyProxyEnabled() && !string.isEmpty()) {
-            return str.replaceAll(string, "static.vk.ru");
+            return str.replace(string, "static.vk.ru");
         }
 
         return str;
