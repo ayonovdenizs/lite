@@ -24,18 +24,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         
-      - name: Set up NDK
-        uses: nttld/setup-ndk@v1.6.0
-        with:
-          ndk-version: r25c
-          add-to-path: true
-
       - name: Set up JDK
         uses: actions/setup-java@v5
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: 'gradle'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install required NDK
+        run: sdkmanager "ndk;25.2.9519653"
               
       - name: Download tools
         run: |
@@ -50,14 +50,13 @@ jobs:
           
       - name: Build VTLite
         run: |
+          export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/25.2.9519653"
+          test -d "$ANDROID_NDK_HOME"
           ./gradlew --no-daemon generateBuildTasks
           ./gradlew --no-daemon prepareDexForMergeDev
           java -jar scripts/apktool.jar b smali -o smali/VTLite.apk --use-aapt2 -p scripts/framework/
           zipalign -p -f 4 smali/VTLite.apk smali/VTLite.apk_aligned
           mv smali/VTLite.apk_aligned smali/VTLite.apk
-        env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-
       - name: Sign and verify the apk
         run: |
           java -jar scripts/apksigner.jar sign --ks scripts/debug.keystore --ks-key-alias androiddebugkey --ks-pass pass:android smali/VTLite.apk
