@@ -303,7 +303,7 @@
 
     :cond_9
     :goto_5
-    const-string p2, "api.vk.com"
+    const-string p2, "api.vk.ru"
 
     invoke-static {p2}, Lru/vtosters/hooks/ProxyHook;->linkReplacer(Ljava/lang/String;)Ljava/lang/String;
 

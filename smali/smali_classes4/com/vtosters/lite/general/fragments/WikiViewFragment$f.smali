@@ -97,7 +97,7 @@
 
     if-nez v1, :cond_0
 
-    const-string v1, "m.vk.com"
+    const-string v1, "m.vk.ru"
 
     invoke-virtual {v0}, Landroid/net/Uri;->getHost()Ljava/lang/String;
 

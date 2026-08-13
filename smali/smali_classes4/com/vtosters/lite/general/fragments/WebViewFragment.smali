@@ -1010,7 +1010,7 @@
 
     move-result-object v1
 
-    const-string v2, "https://oauth.vk.com/webview_token"
+    const-string v2, "https://oauth.vk.ru/webview_token"
 
     invoke-static {v2}, Lru/vtosters/hooks/ProxyHook;->linkReplacer(Ljava/lang/String;)Ljava/lang/String;
 
@@ -1200,7 +1200,7 @@
 .method private c5()Ljava/lang/String;
     .locals 3
 
-    const-string v0, "https://oauth.vk.com/webview_token"
+    const-string v0, "https://oauth.vk.ru/webview_token"
 
     invoke-static {v0}, Lru/vtosters/hooks/ProxyHook;->linkReplacer(Ljava/lang/String;)Ljava/lang/String;
 

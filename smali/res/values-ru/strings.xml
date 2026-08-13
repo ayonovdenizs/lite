@@ -211,7 +211,7 @@
     <string name="api_method_cant_be_empty">Метод api не может быть пустым или null</string>
     <string name="app_install">Установить</string>
     <string name="app_launch">Запустить</string>
-    <string name="app_name">VTLite</string>
+    <string name="app_name">VTL Reforged</string>
     <string name="app_name_orig">VK</string>
     <string name="app_name_alter">ВКонтакте</string>
     <string name="app_remove_confirm">Вы действительно хотите удалить эту игру?</string>
@@ -5420,7 +5420,7 @@
     <string name="gms_download_microg">Скачать MicroG</string>
     <string name="gms_what_to_do_next">Что делать дальше?</string>
     <string name="gms_what_to_do_after_microg_title">Что делать после установки MicroG?</string>
-    <string name="gms_what_to_do_after_microg_summ">1. Войдите в свой Google аккаунт в настройках MicroG \n2. Включите регистрацию устройства \n3. Включите облачный обмен сообщениями \n4. Переустановите VTLite \n5. Разрешите ему принимать уведомления</string>
+    <string name="gms_what_to_do_after_microg_summ">1. Войдите в свой Google аккаунт в настройках MicroG \n2. Включите регистрацию устройства \n3. Включите облачный обмен сообщениями \n4. Переустановите VTL Reforged \n5. Разрешите ему принимать уведомления</string>
     <string name="donate">Помочь проекту</string>
     <string name="fulltime">dd MMMM yyyy в HH:mm:ss</string>
     <string name="fulltime2">dd MMMM в HH:mm:ss</string>
@@ -5890,7 +5890,7 @@
     <string name="DNR_ON">Включить нечиталку</string>
     <string name="DNR_OFF">Отключить нечиталку</string>
 
-    <string name="vtl_crashed">Произошла ошибка в работе VTLite!</string>
+    <string name="vtl_crashed">Произошла ошибка в работе VTL Reforged!</string>
     <string name="vtl_crash_upload">Загрузить логи</string>
     <string name="vtl_crash_save">Сохранить в файл</string>
 
@@ -5976,7 +5976,7 @@
 
     <string name="translator">Перевести</string>
 
-    <string name="telegram_stickers_service">Сервис стикеров Telegram в VTLite</string>
+    <string name="telegram_stickers_service">Сервис стикеров Telegram в VTL Reforged</string>
     <string name="telegram_stickers_downloading">: загрузка</string>
     <string name="telegram_stickers_updating">: обновление</string>
     <string name="telegram_stickers_gettinginfo">Получение информации</string>
@@ -6173,7 +6173,7 @@
     <string name="photo_get_error">Не удалось получить ссылку на фото</string>
 
     <string name="denial_of_responsibility_proxy">Отказ от ответственности</string>
-    <string name="denial_of_responsibility_proxy_summ">Разработчики клиента VTLite не несут никакой ответственности за работу и безопасность использования сторонних прокси-серверов \n\nИспользуйте на свой страх и риск</string>
+    <string name="denial_of_responsibility_proxy_summ">Разработчики клиента VTL Reforged не несут никакой ответственности за работу и безопасность использования сторонних прокси-серверов \n\nИспользуйте на свой страх и риск</string>
 
     <string name="altervika_title">Альтернативный домен VikaMobile</string>
 
@@ -6214,7 +6214,7 @@
     <string name="from_lower">от</string>
     <string name="chat_export_error">ошибка</string>
 
-    <string name="chat_export_title">Экспорт из VTLite</string>
+    <string name="chat_export_title">Экспорт из VTL Reforged</string>
     <string name="chat_export_header">Экспорт истории чата</string>
     <string name="chat_export_avatar_update">Обновил фотографию беседы</string>
     <string name="chat_export_avatar_remove">Удалил фотографию беседы</string>
@@ -6283,7 +6283,7 @@
     <string name="cached_tracks_remove_confirm">Вы действительно хотите удалить все кешированные треки?</string>
 
     <string name="vkx_integration_title">Включите интеграцию VK X!</string>
-    <string name="vkx_integration_desc">Получите доступ к хранилищу треков и возможности включать/кешировать треки из VTLite в VK X.\n\nПодробнее - в Настройки > Медиа контент > VK X</string>
+    <string name="vkx_integration_desc">Получите доступ к хранилищу треков и возможности включать/кешировать треки из VTL Reforged в VK X.\n\nПодробнее - в Настройки > Медиа контент > VK X</string>
 
     <string name="music_downloading">Загрузка музыки</string>
     <string name="music_downloading_progress">Прогресс загрузки музыки</string>

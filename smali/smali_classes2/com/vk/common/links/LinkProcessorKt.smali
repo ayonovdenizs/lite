@@ -478,7 +478,7 @@
     .line 52
     sget-object v1, Lcom/vk/common/links/LinkProcessor;->p:Lcom/vk/common/links/LinkProcessor$a;
 
-    const-string v3, "m.vk.com/up"
+    const-string v3, "m.vk.ru/up"
 
     move-object v2, p0
 

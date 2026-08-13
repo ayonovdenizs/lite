@@ -895,7 +895,7 @@
     goto :goto_0
 
     :cond_0
-    const-string v0, "m.vk.com"
+    const-string v0, "m.vk.ru"
 
     :goto_0
     return-object v0
@@ -1548,7 +1548,7 @@
 
     move-result-object v1
 
-    const-string v2, "m.vk.com"
+    const-string v2, "m.vk.ru"
 
     invoke-static {v2, v1}, Lkotlin/jvm/internal/Intrinsics;->a(Ljava/lang/Object;Ljava/lang/Object;)Z
 

@@ -66,7 +66,7 @@
 
     move-result-object v0
 
-    const-string v1, "oauth.vk.com"
+    const-string v1, "oauth.vk.ru"
 
     invoke-static {v1}, Lru/vtosters/hooks/ProxyHook;->linkReplacer(Ljava/lang/String;)Ljava/lang/String;
 

@@ -140,7 +140,7 @@
     .line 9
     new-instance p1, Lcom/vtosters/lite/general/fragments/WebViewFragment$g;
 
-    const-string v0, "https://m.vk.com/privacy"
+    const-string v0, "https://m.vk.ru/privacy"
 
     invoke-direct {p1, v0}, Lcom/vtosters/lite/general/fragments/WebViewFragment$g;-><init>(Ljava/lang/String;)V
 
@@ -184,7 +184,7 @@
     .line 16
     new-instance p1, Lcom/vtosters/lite/general/fragments/WebViewFragment$g;
 
-    const-string v0, "https://m.vk.com/terms"
+    const-string v0, "https://m.vk.ru/terms"
 
     invoke-direct {p1, v0}, Lcom/vtosters/lite/general/fragments/WebViewFragment$g;-><init>(Ljava/lang/String;)V
 
@@ -271,7 +271,7 @@
     .line 27
     new-instance p1, Lcom/vtosters/lite/general/fragments/WebViewFragment$g;
 
-    const-string v0, "https://m.vk.com/privacy/cookies"
+    const-string v0, "https://m.vk.ru/privacy/cookies"
 
     invoke-direct {p1, v0}, Lcom/vtosters/lite/general/fragments/WebViewFragment$g;-><init>(Ljava/lang/String;)V
 

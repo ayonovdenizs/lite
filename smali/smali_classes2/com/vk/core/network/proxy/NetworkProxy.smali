@@ -573,7 +573,7 @@
     .line 5
     new-instance v2, Lcom/vk/core/network/proxy/ProxyHostChecker;
 
-    const-string v3, "https://m.vk.com/ping.txt"
+    const-string v3, "https://m.vk.ru/ping.txt"
 
     invoke-direct {v2, v3, p0}, Lcom/vk/core/network/proxy/ProxyHostChecker;-><init>(Ljava/lang/String;Lcom/vk/core/network/proxy/NetworkProxy;)V
 
@@ -739,7 +739,7 @@
 
     if-nez v0, :cond_2
 
-    const-string v0, "https://m.vk.com/ping.txt"
+    const-string v0, "https://m.vk.ru/ping.txt"
 
     invoke-direct {p0, v0}, Lcom/vk/core/network/proxy/NetworkProxy;->d(Ljava/lang/String;)Z
 
