@@ -35,6 +35,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          cache: 'gradle'
               
       - name: Download tools
         run: |
@@ -49,8 +50,8 @@ jobs:
           
       - name: Build VTLite
         run: |
-          gradle generateBuildTasks
-          gradle prepareDexForMergeDev
+          ./gradlew --no-daemon generateBuildTasks
+          ./gradlew --no-daemon prepareDexForMergeDev
           java -jar scripts/apktool.jar b smali -o smali/VTLite.apk --use-aapt2 -p scripts/framework/
           zipalign -p -f 4 smali/VTLite.apk smali/VTLite.apk_aligned
           mv smali/VTLite.apk_aligned smali/VTLite.apk
