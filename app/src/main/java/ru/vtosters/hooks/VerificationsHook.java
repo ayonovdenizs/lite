@@ -5,11 +5,14 @@ import org.json.JSONObject;
 import ru.vtosters.hooks.other.Preferences;
 import ru.vtosters.lite.utils.VTVerifications;
 
+import static ru.vtosters.lite.utils.AndroidUtils.getGlobalContext;
+
 import static ru.vtosters.hooks.other.Preferences.getBoolValue;
 
 public class VerificationsHook {
     public static boolean isVerified(int id) {
-        return VTVerifications.sVerifications.contains(id);
+        VTVerifications.load(getGlobalContext(), id);
+        return VTVerifications.isVerified(id);
     }
 
     public static boolean vtverif() {
@@ -37,11 +40,15 @@ public class VerificationsHook {
             return false;
         }
 
-        return VTVerifications.isPrometheus(VTVerifications.getId(jSONObject));
+        int id = VTVerifications.getId(jSONObject);
+        VTVerifications.load(getGlobalContext(), id);
+        return VTVerifications.isPrometheus(id);
     }
 
     public static boolean hasDeveloper(JSONObject jSONObject) {
-        return VTVerifications.isDeveloper(VTVerifications.getId(jSONObject));
+        int id = VTVerifications.getId(jSONObject);
+        VTVerifications.load(getGlobalContext(), id);
+        return VTVerifications.isDeveloper(id);
     }
 
     public static VerifyInfo VerifyInfo(JSONObject jSONObject) {
