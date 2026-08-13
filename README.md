@@ -37,8 +37,6 @@
 
 * Стабильные сборки находятся в [Releases](https://github.com/ayonovdenizs/lite/releases)
 
-Зеркало на нашем [<img src="https://gitea.com/assets/img/logo.svg" align="center" width="20" height="20"/> Git](https://git.maki.su/vtosters/lite)
-
 ### Быстрая навигация
 
 - [Функциональность](#функциональность)
