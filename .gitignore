@@ -14,6 +14,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+cmdline-tools
 
 *.apk
 /smali/build/apk/
