@@ -15,6 +15,7 @@
 .cxx
 local.properties
 cmdline-tools
+ayonovdenizs.jks
 
 *.apk
 /smali/build/apk/
