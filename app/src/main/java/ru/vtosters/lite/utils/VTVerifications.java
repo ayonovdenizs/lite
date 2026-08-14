@@ -3,6 +3,7 @@ package ru.vtosters.lite.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import com.vk.core.network.Network;
 import com.vk.navigation.NavigatorKeys;
 import okhttp3.*;
 import org.json.JSONArray;
@@ -13,53 +14,36 @@ import ru.vtosters.lite.di.singleton.VtOkHttpClient;
 import ru.vtosters.sponsorpost.utils.GzipDecompressor;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-/** Loads VTL Reforged badges from the public badges API and caches them per VK ID. */
+import static ru.vtosters.hooks.other.Preferences.getBoolValue;
+
 public class VTVerifications {
-    private static final String TAG = "VTVerifications";
-    private static final String BADGES_API_BASE_URL = "https://pyminelauncher.vercel.app";
-    private static final String BADGES_API_PATH = "/api_vtlr/users/";
-    private static final String PREFS_NAME = "vt_another_data";
-    private static final String CACHE_PREFIX = "badges_";
-    private static final String CACHE_TIME_PREFIX = "badges_time_";
-    private static final long CACHE_TTL_MS = 10 * 60 * 1000L;
-
-    public static final Set<Integer> sVerifications = Collections.synchronizedSet(new HashSet<>());
-    public static final Set<Integer> sPrometheuses = Collections.synchronizedSet(new HashSet<>());
-    public static final Set<Integer> sDevelopers = Collections.synchronizedSet(new HashSet<>());
-    private static final Set<Integer> sPendingIds = Collections.synchronizedSet(new HashSet<>());
+    public static final List<Integer> sVerifications = new ArrayList<>();
+    public static final List<Integer> sPrometheuses = new ArrayList<>();
+    public static final List<Integer> sDevelopers = new ArrayList<>();
     private static final OkHttpClient sClient = VtOkHttpClient.getInstance();
-    public static volatile boolean isLoaded = false;
+    public static boolean isLoaded = false;
 
     public static void load(Context context) {
-        load(context, AccountManagerUtils.getUserId());
-    }
+        SharedPreferences prefs = context.getSharedPreferences("vt_another_data", 0);
 
-    /**
-     * Starts a non-blocking lookup. Repeated calls while a request is in progress are ignored.
-     * The UI remains responsive and subsequent binds use the populated in-memory sets.
-     */
-    public static void load(Context context, int vkId) {
-        if (context == null || vkId <= 0 || Preferences.serverFeaturesDisable()) {
+        if (isLoaded) {
+            Log.d("VTVerifications", "already loaded");
             return;
         }
 
-        SharedPreferences prefs = context.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
-        if (isCacheFresh(prefs, vkId)) {
-            applyBadges(vkId, prefs.getString(CACHE_PREFIX + vkId, "[]"));
+        if ((!NetworkUtils.isNetworkConnected() && NetworkUtils.isInternetSlow() || getBoolValue("isRoamingState", false)) && prefs.contains("ids") || Preferences.serverFeaturesDisable()) {
+            parseJson(prefs.getString("ids", "[]"));
+            Log.d("VTVerifications", "load from memory. Roaming or Network issues");
             isLoaded = true;
             return;
         }
 
-        if (!sPendingIds.add(vkId)) {
-            return;
-        }
-
         Request request = new Request.a()
-                .b(BADGES_API_BASE_URL + BADGES_API_PATH + vkId + "/badges/")
+                .b("https://vtosters.app/vktoaster/getGalo4kiBatch")
+                .a(RequestBody.a(MediaType.b("application/json; charset=UTF-8"), "{\"types\":[0,228,404]}"))
                 .a("Accept-Encoding", "gzip")
                 .a();
 
@@ -67,80 +51,62 @@ public class VTVerifications {
             @Override
             public void a(Call call, Response response) {
                 try {
-                    JSONObject responseJson = new JSONObject(GzipDecompressor.decompressResponse(response));
-                    if (!"success".equals(responseJson.optString("status"))) {
-                        loadCachedBadges(prefs, vkId);
-                        return;
-                    }
-
-                    JSONObject data = responseJson.optJSONObject("data");
-                    if (data == null || data.optInt("vk_id") != vkId) {
-                        loadCachedBadges(prefs, vkId);
-                        return;
-                    }
-
-                    JSONArray badges = data.optJSONArray("badges");
-                    String payload = badges == null ? "[]" : badges.toString();
-                    applyBadges(vkId, payload);
+                    String payload = GzipDecompressor.decompressResponse(response);
+                    parseJson(payload);
                     prefs.edit()
-                            .putString(CACHE_PREFIX + vkId, payload)
-                            .putLong(CACHE_TIME_PREFIX + vkId, System.currentTimeMillis())
+                            .putString("ids", payload)
                             .apply();
                     isLoaded = true;
-                    Log.d(TAG, "badges loaded for VK ID " + vkId);
-                } catch (Exception e) {
-                    loadCachedBadges(prefs, vkId);
-                    Log.d(TAG, "could not parse badges response");
-                } finally {
-                    sPendingIds.remove(vkId);
+                    Log.d("VTVerifications", "load from network");
+                } catch (Exception ignored) {
+                    if (prefs.contains("ids")) {
+                        parseJson(prefs.getString("ids", "[]"));
+                        Log.d("VTVerifications", "load from memory. Something went wrong with parsing");
+                        isLoaded = true;
+                    }
                 }
             }
 
             @Override
             public void a(Call call, IOException e) {
-                loadCachedBadges(prefs, vkId);
-                sPendingIds.remove(vkId);
-                Log.d(TAG, "could not load badges");
+                Log.d("VTVerifications", e.getMessage());
+                if (prefs.contains("ids")) {
+                    parseJson(prefs.getString("ids", "[]"));
+                    Log.d("VTVerifications", "load from memory. Something went wrong with user network");
+                    isLoaded = true;
+                }
             }
         });
     }
 
-    private static boolean isCacheFresh(SharedPreferences prefs, int vkId) {
-        return prefs.contains(CACHE_PREFIX + vkId)
-                && System.currentTimeMillis() - prefs.getLong(CACHE_TIME_PREFIX + vkId, 0) < CACHE_TTL_MS;
-    }
-
-    private static void loadCachedBadges(SharedPreferences prefs, int vkId) {
-        if (prefs.contains(CACHE_PREFIX + vkId)) {
-            applyBadges(vkId, prefs.getString(CACHE_PREFIX + vkId, "[]"));
-            isLoaded = true;
-        }
-    }
-
-    private static void applyBadges(int vkId, String payload) {
-        removeBadges(vkId);
+    /**
+     * 0 - Verifications
+     * 228 - Prometheus
+     * 404 - Developer
+     */
+    private static void parseJson(String payload) {
         try {
-            JSONArray badges = new JSONArray(payload);
-            for (int i = 0; i < badges.length(); i++) {
-                switch (badges.optJSONObject(i).optInt("type", -1)) {
-                    case 0 -> sVerifications.add(vkId);
-                    case 228 -> sPrometheuses.add(vkId);
-                    case 404 -> sDevelopers.add(vkId);
-                }
-            }
+            JSONObject json = new JSONObject(payload);
+            processIds(json.optJSONArray("0"), sVerifications);
+            processIds(json.optJSONArray("228"), sPrometheuses);
+            processIds(json.optJSONArray("404"), sDevelopers);
         } catch (JSONException e) {
-            Log.d(TAG, "invalid cached badges");
+            e.getStackTrace();
         }
     }
 
-    private static void removeBadges(int vkId) {
-        sVerifications.remove(vkId);
-        sPrometheuses.remove(vkId);
-        sDevelopers.remove(vkId);
-    }
+    private static void processIds(JSONArray jsonIds, List<Integer> member) {
+        if (jsonIds == null || jsonIds.length() == 0) {
+            return;
+        }
 
-    public static boolean isVerified(int id) {
-        return sVerifications.contains(id);
+        for (int i = 0; i < jsonIds.length(); i++) {
+            int id = jsonIds.optInt(i);
+
+            if (id != 0) {
+                member.add(id);
+            }
+        }
     }
 
     public static boolean isPrometheus(int id) {
