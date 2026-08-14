@@ -624,19 +624,6 @@ public class VTSettings extends TrackedMaterialPreferenceToolbarFragment {
                 }
         );
 
-        PreferenceFragmentUtils.addPreference(
-                getPreferenceScreen(),
-                "original_vtlite_acknowledgements",
-                "Благодарности",
-                "Спасибо разработчикам оригинального VTosters Lite — их работа стала основой VTL Reforged.",
-                R.drawable.ic_favorite_outline_28,
-                preference -> {
-                    requireContext().startActivity(new Intent(Intent.ACTION_VIEW)
-                            .setData(Uri.parse("https://github.com/vtosters/lite")));
-                    return false;
-                }
-        );
-
         if (AndroidUtils.isAdbOrDeveloperOptionsEnabled(requireContext().getContentResolver())) {
             PreferenceFragmentUtils.addPreference(
                     getPreferenceScreen(),
